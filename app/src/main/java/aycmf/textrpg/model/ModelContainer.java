@@ -24,22 +24,6 @@ public class ModelContainer {
         achievements = new Achievements();
     }
 
-    public void save(Context con) {
-        SharedPreferences save = con.getSharedPreferences("save", 0);
-        SharedPreferences.Editor editor = save.edit();
-        final Gson gson = new Gson();
-        String json = gson.toJson(this);
-        editor.putString("saveData", json);
-        editor.commit();
-    }
-
-    public static ModelContainer load(Context con) {
-        SharedPreferences save = con.getSharedPreferences("save", 0);
-        Gson gson = new Gson();
-        String json = save.getString("saveData", null);
-        return gson.fromJson(json, ModelContainer.class);
-    }
-
     public void initializeGame(String characterName) {
         character.initializeNewCharacter(characterName);
     }
