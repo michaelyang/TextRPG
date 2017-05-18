@@ -18,6 +18,7 @@ public class Character {
     public int luck;
     public String name;
     public boolean alive;
+    public int characterIconID;
 
     public Character() {}
     public Character(String name, int strength, int dexterity, int intelligence, int luck, boolean alive) {
