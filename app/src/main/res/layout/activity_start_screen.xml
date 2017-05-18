@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,27 +11,22 @@
         android:id="@+id/statusView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         />
 
-    <RelativeLayout
-        android:layout_width="370dp"
-        android:layout_height="370dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/swordart"
-                android:contentDescription="@string/startscreen_logodescription"
-                />
-    </RelativeLayout>
+     <ImageView
+         android:layout_gravity="fill"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/swordart"
+         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        >
+        android:gravity="fill"
+        android:baselineAligned="false">
 
         <RelativeLayout
             android:layout_width="0dip"
@@ -44,6 +38,87 @@
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="0.9">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/startscreen_continue"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="@string/startscreen_continue"
+                    />
+
+                <Button
+                    android:id="@+id/startscreen_newgame"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:text="@string/startscreen_newgame"
+                    />
+        <Button
+            android:id="@+id/startscreen_achievements"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/startscreen_achievements"
+            />
+        <Button
+            android:id="@+id/startscreen_about"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/startscreen_about"
+            />
+                </LinearLayout>
+
+<!--OPTION 2
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                >
+                <TableRow>
+                <Button
+                    android:id="@+id/startscreen_continue"
+                    android:text="@string/startscreen_continue"
+                    android:drawableTop="@drawable/female"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    />
+
+                <Button
+                    android:id="@+id/startscreen_newgame"
+                    android:text="@string/startscreen_newgame"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/female"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    />
+                </TableRow>
+
+            <TableRow>
+                <Button
+                    android:id="@+id/startscreen_achievements"
+                    android:text="@string/startscreen_achievements"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/female"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    />
+                <Button
+                    android:id="@+id/startscreen_about"
+                    android:text="@string/startscreen_about"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/female"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    />
+            </TableRow>
+                </TableLayout>
+            -->
+
+<!--OPTION 1
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -74,6 +149,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             />
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,8 +172,9 @@
             android:text="@string/startscreen_about"
             style="@style/Widget.AppCompat.Button.Colored"
             />
-    </LinearLayout>
-            </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
+            -->
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dip"

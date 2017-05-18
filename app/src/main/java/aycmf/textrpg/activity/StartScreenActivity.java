@@ -56,7 +56,7 @@ public class StartScreenActivity extends AppCompatActivity {
             }
         });
 
-        startscreen_settings = (Button) findViewById(R.id.startscreen_settings);
+        //startscreen_settings = (Button) findViewById(R.id.startscreen_settings);
         setButtonState();
     }
 
