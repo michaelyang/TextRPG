@@ -32,7 +32,6 @@ public class StatusView extends RelativeLayout {
     public StatusView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TextRPGApplication app = (TextRPGApplication) context.getApplicationContext();
-
         inflate(context, R.layout.status_view, this);
 
         characterIcon = (ImageView) findViewById(R.id.characterIcon);
@@ -43,7 +42,11 @@ public class StatusView extends RelativeLayout {
         if(app.hasExistingGame()) {
             app.load();
             character = app.getModelContainer().getCharacter();
-            characterIcon.setImageResource(R.drawable.male);
+            if (character.getCharacterIconID() == 1) {
+                characterIcon.setImageResource(R.drawable.male);
+            } else {
+                characterIcon.setImageResource(R.drawable.female);
+            }
             characterName.setText(character.getName());
             //characterStats.setText("Str: " + character.getStrength() + " Dex: " + character.getDexterity() + " Luk: " + character.getLuck() + " Int: " + character.getIntelligence());
             inventoryIcon.setImageResource(R.drawable.bag);
@@ -52,5 +55,14 @@ public class StatusView extends RelativeLayout {
             characterIcon.setImageResource(R.mipmap.ic_launcher);
             characterName.setText("No Name");
         }
+   }
+
+   public void updateStatus() {
+       if (character.getCharacterIconID() == 1) {
+           characterIcon.setImageResource(R.drawable.male);
+       } else {
+           characterIcon.setImageResource(R.drawable.female);
+       }
+       characterName.setText(character.getName());
    }
 }

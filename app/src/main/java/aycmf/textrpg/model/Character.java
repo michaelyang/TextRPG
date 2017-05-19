@@ -1,5 +1,7 @@
 package aycmf.textrpg.model;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by myang on 5/10/17.
  */
@@ -20,7 +22,9 @@ public class Character {
     public boolean alive;
     public int characterIconID;
 
-    public Character() {}
+    public Character() {
+    }
+
     public Character(String name, int strength, int dexterity, int intelligence, int luck, boolean alive) {
         this.name = name;
         this.strength = strength;
@@ -30,32 +34,51 @@ public class Character {
         this.alive = alive;
     }
 
-    public void initializeNewCharacter(String name) {
+    public void initializeNewCharacter(String name, int characterIconID) {
         this.name = name;
         this.strength = 1;
         this.dexterity = 1;
         this.intelligence = 1;
         this.luck = 1;
+        this.characterIconID = characterIconID;
         this.alive = true;
+    }
+
+    public int getCharacterIconID() {
+        return characterIconID;
     }
 
     public int getStrength() {
         return strength;
     }
-    public void changeStrength(int changeAmount) { strength = Math.min(strength + changeAmount, 0); }
 
-    public int getDexterity() { return dexterity; }
-    public void changeDexterity(int changeAmount) { dexterity = Math.min(dexterity + changeAmount, 0); }
+    public void changeStrength(int changeAmount) {
+        strength = Math.min(strength + changeAmount, 0);
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public void changeDexterity(int changeAmount) {
+        dexterity = Math.min(dexterity + changeAmount, 0);
+    }
 
     public int getIntelligence() {
         return intelligence;
     }
-    public void changeIntelligence(int changeAmount) { intelligence = Math.min(intelligence + changeAmount, 0); }
+
+    public void changeIntelligence(int changeAmount) {
+        intelligence = Math.min(intelligence + changeAmount, 0);
+    }
 
     public int getLuck() {
         return luck;
     }
-    public void changeLuck(int changeAmount) { luck = Math.min(luck + changeAmount, 0); }
+
+    public void changeLuck(int changeAmount) {
+        luck = Math.min(luck + changeAmount, 0);
+    }
 
     /*
     public Item getEquippedItem() {
@@ -65,7 +88,9 @@ public class Character {
         equippedItem = item;
     }
 */
-    public String getName() { return name;}
+    public String getName() {
+        return name;
+    }
 
     public void revive() {
         alive = true;

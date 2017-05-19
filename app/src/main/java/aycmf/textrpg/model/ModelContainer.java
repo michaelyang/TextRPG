@@ -5,27 +5,18 @@ package aycmf.textrpg.model;
  */
 
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.content.Context;
-
-import com.google.gson.Gson;
-
-import aycmf.textrpg.model.Character;
-import aycmf.textrpg.model.Achievements;
-
 public class ModelContainer {
 
     public final Character character;
-    public final Achievements achievements;
+    public final Achievement achievement;
 
-    public ModelContainer() {
-        character = new Character();
-        achievements = new Achievements();
+    public ModelContainer(Character character, Achievement achievement) {
+        this.character = character;
+        this.achievement = achievement;
     }
 
-    public void initializeGame(String characterName) {
-        character.initializeNewCharacter(characterName);
+    public void initializeModelContainer(String characterName, int characterIconID) {
+        character.initializeNewCharacter(characterName, characterIconID);
     }
 
     public Character getCharacter() {

@@ -14,11 +14,11 @@ import aycmf.textrpg.model.ModelContainer;
 
 public class TextRPGApplication extends Application {
 
-    private ModelContainer modelContainer = new ModelContainer();
+    private ModelContainer modelContainer;
     public ModelContainer getModelContainer() { return modelContainer; }
 
-    public void initializeGame(String characterName) {
-        modelContainer.initializeGame(characterName);
+    public void initializeGame(String characterName, int characterIconID) {
+        modelContainer.initializeModelContainer(characterName, characterIconID);
     }
 
     public void save() {

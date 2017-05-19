@@ -8,12 +8,21 @@
 
 <TextView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="Achievements"/>
+    android:layout_height="wrap_content"
+    android:text="Achievements"
+    android:textAlignment="center"
+    android:textSize="30sp"
+    android:paddingBottom="20sp"/>
 
     <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/achievementGridView"/>
+        android:id="@+id/achievementGridView"
+        android:gravity="center"
+        android:columnWidth="100dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="24dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="spacingWidthUniform"/>
 
 </LinearLayout>

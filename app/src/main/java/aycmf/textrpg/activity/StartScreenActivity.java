@@ -4,7 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import aycmf.textrpg.R;
 import aycmf.textrpg.TextRPGApplication;
+import aycmf.textrpg.view.StatusView;
 
 public class StartScreenActivity extends AppCompatActivity {
     private Button startscreen_continue;
@@ -23,12 +26,15 @@ public class StartScreenActivity extends AppCompatActivity {
     private Button startscreen_achievements;
     private Button startscreen_settings;
     private Button startscreen_about;
+    private StatusView statusView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Resources res = getResources();
         setContentView(R.layout.activity_start_screen);
+        statusView = (StatusView) findViewById(R.id.statusView);
+
         Typeface munro = Typeface.createFromAsset(getAssets(),"munro.ttf");
         startscreen_continue = (Button) findViewById(R.id.startscreen_continue);
         startscreen_continue.setOnClickListener(new View.OnClickListener() {
@@ -75,13 +81,14 @@ public class StartScreenActivity extends AppCompatActivity {
 
         startscreen_about.setTypeface(munro);
         //startscreen_settings = (Button) findViewById(R.id.startscreen_settings);
+
         setButtonState();
     }
 
     public void continueGame(){
         final TextRPGApplication app = (TextRPGApplication) getApplicationContext();
         app.load();
-        Toast.makeText(StartScreenActivity.this,app.getModelContainer().getCharacter().getName(),Toast.LENGTH_LONG).show();
+        Toast.makeText(StartScreenActivity.this,app.getModelContainer().getCharacter().getName()+app.getModelContainer().getCharacter().getCharacterIconID(),Toast.LENGTH_LONG).show();
     }
 
     public void newGame(){
@@ -91,16 +98,29 @@ public class StartScreenActivity extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.character_creation_dialog, null);
         final AppCompatEditText characterName = (AppCompatEditText) dialogView.findViewById(R.id.characterName);
         final RadioGroup characterIcon = (RadioGroup) dialogView.findViewById(R.id.characterIcon);
+        characterName.setError("Character name is required.");
         dialogBuilder.setView(dialogView);
         dialogBuilder.setTitle("Character Creation");
         //dialogBuilder.setMessage("TESTING");
         dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                app.initializeGame(characterName.getText().toString());
+                int characterIconID = 1;
+                int button = characterIcon.getCheckedRadioButtonId();
+                switch (button) {
+                    case R.id.male:
+                        characterIconID = 1;
+                        break;
+                    case R.id.female:
+                        characterIconID = 2;
+                        break;
+                }
+                Toast.makeText(StartScreenActivity.this,characterIconID+"",Toast.LENGTH_LONG).show();
+                app.initializeGame(characterName.getText().toString(), characterIconID);
                 app.save();
                 //below function call is only for testing purposes. Won't be needed once the GameActivity is implemented
                 setButtonState();
+                statusView.updateStatus();
                 //continueGame(true, characterName.getText().toString());
                 //setButtonState(null, null);
             }
@@ -108,6 +128,7 @@ public class StartScreenActivity extends AppCompatActivity {
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         AlertDialog alert = dialogBuilder.create();
         alert.show();
+        //alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
         /*
         new AlertDialog.Builder(StartScreenActivity.this)
