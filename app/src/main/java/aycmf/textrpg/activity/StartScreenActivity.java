@@ -3,6 +3,7 @@ package aycmf.textrpg.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,13 +22,14 @@ public class StartScreenActivity extends AppCompatActivity {
     private Button startscreen_newgame;
     private Button startscreen_achievements;
     private Button startscreen_settings;
+    private Button startscreen_about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Resources res = getResources();
         setContentView(R.layout.activity_start_screen);
-
+        Typeface munro = Typeface.createFromAsset(getAssets(),"munro.ttf");
         startscreen_continue = (Button) findViewById(R.id.startscreen_continue);
         startscreen_continue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +37,7 @@ public class StartScreenActivity extends AppCompatActivity {
                 continueGame();
             }
         });
+        startscreen_continue.setTypeface(munro);
 
         startscreen_newgame = (Button) findViewById(R.id.startscreen_newgame);
         startscreen_newgame.setOnClickListener(new View.OnClickListener() {
@@ -43,19 +46,34 @@ public class StartScreenActivity extends AppCompatActivity {
                 newGame();
             }
         });
+        startscreen_newgame.setTypeface(munro);
 
         startscreen_achievements = (Button) findViewById(R.id.startscreen_achievements);
         startscreen_achievements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(StartScreenActivity.this, AchievementActivity.class);
+                startActivity(i);
+                                /*
                 clearGame();
                 Intent i = getBaseContext().getPackageManager()
                         .getLaunchIntentForPackage( getBaseContext().getPackageName() );
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);*/
+            }
+        });
+        startscreen_achievements.setTypeface(munro);
+
+        startscreen_about = (Button) findViewById(R.id.startscreen_about);
+        startscreen_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(StartScreenActivity.this, AboutActivity.class);
                 startActivity(i);
             }
         });
 
+        startscreen_about.setTypeface(munro);
         //startscreen_settings = (Button) findViewById(R.id.startscreen_settings);
         setButtonState();
     }
