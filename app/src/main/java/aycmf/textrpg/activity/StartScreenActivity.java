@@ -28,16 +28,23 @@ public class StartScreenActivity extends AppCompatActivity {
     private Button startscreen_achievements;
     private Button startscreen_settings;
     private Button startscreen_about;
+    private Button startscreen_reset;
     private StatusView statusView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final TextRPGApplication app = (TextRPGApplication) getApplicationContext();
         final Resources res = getResources();
+        Typeface munro = Typeface.createFromAsset(getAssets(),"munro.ttf");
+
         setContentView(R.layout.activity_start_screen);
+        if (app.hasExistingGame()) {
+            app.load();
+        }
+
         statusView = (StatusView) findViewById(R.id.statusView);
 
-        Typeface munro = Typeface.createFromAsset(getAssets(),"munro.ttf");
         startscreen_continue = (Button) findViewById(R.id.startscreen_continue);
         startscreen_continue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,13 +91,23 @@ public class StartScreenActivity extends AppCompatActivity {
         startscreen_about.setTypeface(munro);
         //startscreen_settings = (Button) findViewById(R.id.startscreen_settings);
 
+        startscreen_reset = (Button) findViewById(R.id.startscreen_reset);
+        startscreen_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearGame();
+                setButtonState();
+                statusView.updateStatus();
+            }
+        });
+
         setButtonState();
     }
 
     public void continueGame(){
         final TextRPGApplication app = (TextRPGApplication) getApplicationContext();
         app.load();
-        Toast.makeText(StartScreenActivity.this,app.getModelContainer().getCharacter().getName()+app.getModelContainer().getCharacter().getCharacterIconID(),Toast.LENGTH_LONG).show();
+        Toast.makeText(StartScreenActivity.this,app.getModelContainer().getCharacter().getName()+" with STR: " + app.getModelContainer().getCharacter().getStrength() + " DEX: " + app.getModelContainer().getCharacter().getDexterity() + " and such...",Toast.LENGTH_LONG).show();
     }
 
     public void newGame(){
@@ -100,35 +117,10 @@ public class StartScreenActivity extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.character_creation_dialog, null);
         final AppCompatEditText characterName = (AppCompatEditText) dialogView.findViewById(R.id.characterName);
         final RadioGroup characterIcon = (RadioGroup) dialogView.findViewById(R.id.characterIcon);
+        ((RadioButton) characterIcon.getChildAt(0)).setChecked(true);
         dialogBuilder.setView(dialogView);
         dialogBuilder.setTitle("Character Creation");
         dialogBuilder.setPositiveButton(android.R.string.ok, null);
-        /*
-        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                /*
-                int characterIconID = 1;
-                int button = characterIcon.getCheckedRadioButtonId();
-                switch (button) {
-                    case R.id.male:
-                        characterIconID = 1;
-                        break;
-                    case R.id.female:
-                        characterIconID = 2;
-                        break;
-                }
-                Toast.makeText(StartScreenActivity.this,characterIconID+"",Toast.LENGTH_LONG).show();
-                app.initializeGame(characterName.getText().toString(), characterIconID);
-                app.save();
-                //below function call is only for testing purposes. Won't be needed once the GameActivity is implemented
-                setButtonState();
-                statusView.updateStatus();
-
-                //continueGame(true, characterName.getText().toString());
-                //setButtonState(null, null);
-            }
-        });*/
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         final AlertDialog alert = dialogBuilder.create();
         alert.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -138,12 +130,27 @@ public class StartScreenActivity extends AppCompatActivity {
                 positiveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (characterIcon.getCheckedRadioButtonId() == -1) {
-                            ((TextView) findViewById(R.id.characterIconLabel)).requestFocus();
-                            //((TextView) findViewById(R.id.characterIconLabel)).setError("Character icon is required.");
-                        } else if (characterName.getText().toString().trim().length() == 0) {
+                        if (characterName.getText().toString().trim().length() == 0) {
                             characterName.setError("Character name is required.");
                         } else {
+                            int characterIconID = 1;
+                            int button = characterIcon.getCheckedRadioButtonId();
+                            switch (button) {
+                                case R.id.male:
+                                    characterIconID = 1;
+                                    break;
+                                case R.id.female:
+                                    characterIconID = 2;
+                                    break;
+                            }
+
+                            app.initializeGame(characterName.getText().toString(), characterIconID);
+                            app.save();
+                            //below function call is only for testing purposes. Won't be needed once the GameActivity is implemented
+                            setButtonState();
+                            statusView.updateStatus();
+                            //continueGame(true, characterName.getText().toString());
+                            //setButtonState(null, null);
                             alert.dismiss();
                         }
                     }

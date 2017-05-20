@@ -23,7 +23,7 @@ import aycmf.textrpg.model.Character;
  * TODO: document your custom view class.
  */
 public class StatusView extends RelativeLayout {
-    private final Character character;
+    private final TextRPGApplication app;
     private final ImageView characterIcon;
     private final TextView characterName;
     private final TextView characterStats;
@@ -31,38 +31,31 @@ public class StatusView extends RelativeLayout {
 
     public StatusView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TextRPGApplication app = (TextRPGApplication) context.getApplicationContext();
+        app = (TextRPGApplication) context.getApplicationContext();
+        app.load();
         inflate(context, R.layout.status_view, this);
 
         characterIcon = (ImageView) findViewById(R.id.characterIcon);
         characterName = (TextView) findViewById(R.id.characterName);
         characterStats = (TextView) findViewById(R.id.characterStats);
         inventoryIcon = (ImageView) findViewById(R.id.inventoryIcon);
-
-        if(app.hasExistingGame()) {
-            app.load();
-            character = app.getModelContainer().getCharacter();
-            if (character.getCharacterIconID() == 1) {
-                characterIcon.setImageResource(R.drawable.male);
-            } else {
-                characterIcon.setImageResource(R.drawable.female);
-            }
-            characterName.setText(character.getName());
-            //characterStats.setText("Str: " + character.getStrength() + " Dex: " + character.getDexterity() + " Luk: " + character.getLuck() + " Int: " + character.getIntelligence());
-            inventoryIcon.setImageResource(R.drawable.bag);
-        } else {
-            character = app.getModelContainer().getCharacter();
-            characterIcon.setImageResource(R.mipmap.ic_launcher);
-            characterName.setText("No Name");
-        }
+        updateStatus();
    }
 
    public void updateStatus() {
-       if (character.getCharacterIconID() == 1) {
-           characterIcon.setImageResource(R.drawable.male);
+       if(app.hasExistingGame() && app.isInitialized()) {
+           Character character = app.getModelContainer().getCharacter();
+           if (character.getCharacterIconID() == 1) {
+               characterIcon.setImageResource(R.drawable.male);
+           } else {
+               characterIcon.setImageResource(R.drawable.female);
+           }
+           characterName.setText(character.getName());
+           //characterStats.setText("Str: " + character.getStrength() + " Dex: " + character.getDexterity() + " Luk: " + character.getLuck() + " Int: " + character.getIntelligence());
+           inventoryIcon.setImageResource(R.drawable.bag);
        } else {
-           characterIcon.setImageResource(R.drawable.female);
+           characterIcon.setImageResource(R.drawable.unknown);
+           characterName.setText("");
        }
-       characterName.setText(character.getName());
    }
 }

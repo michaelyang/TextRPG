@@ -15,10 +15,13 @@ import aycmf.textrpg.model.ModelContainer;
 public class TextRPGApplication extends Application {
 
     private ModelContainer modelContainer;
+    private boolean isInitialized = false;
     public ModelContainer getModelContainer() { return modelContainer; }
 
     public void initializeGame(String characterName, int characterIconID) {
+        modelContainer = new ModelContainer();
         modelContainer.initializeModelContainer(characterName, characterIconID);
+        isInitialized = true;
     }
 
     public void save() {
@@ -35,6 +38,7 @@ public class TextRPGApplication extends Application {
         SharedPreferences.Editor editor = save.edit();
         editor.remove("saveData");
         editor.commit();
+        isInitialized = false;
     }
 
     public void load() {
@@ -42,9 +46,11 @@ public class TextRPGApplication extends Application {
         Gson gson = new Gson();
         String json = save.getString("saveData", null);
         modelContainer = gson.fromJson(json, ModelContainer.class);
+        isInitialized = true;
     }
 
     public boolean hasExistingGame() {
         return getSharedPreferences("save",0).contains("saveData");
     }
+    public boolean isInitialized() { return isInitialized; }
 }

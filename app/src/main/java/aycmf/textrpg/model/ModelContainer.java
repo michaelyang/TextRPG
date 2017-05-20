@@ -8,11 +8,15 @@ package aycmf.textrpg.model;
 public class ModelContainer {
 
     public final Character character;
-    public final Achievement achievement;
+    //public final Achievement achievement;
 
+    public ModelContainer() {
+        this.character = new Character();
+        //this.achievement = new Achievement();
+    }
     public ModelContainer(Character character, Achievement achievement) {
         this.character = character;
-        this.achievement = achievement;
+        //this.achievement = achievement;
     }
 
     public void initializeModelContainer(String characterName, int characterIconID) {

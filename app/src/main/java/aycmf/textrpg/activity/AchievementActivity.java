@@ -19,14 +19,16 @@ public class AchievementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_achievement);
-        Achievement a = new Achievement("a",1);
-        Achievement b = new Achievement("b",2);
-        Achievement c = new Achievement("c",3);
-        Achievement d = new Achievement("d",4);
-        Achievement e = new Achievement("e",5);
+        Achievement a = new Achievement("Achievement 1",1);
+        Achievement b = new Achievement("Achievement 2",2);
+        Achievement c = new Achievement("Achievement 3",3);
+        Achievement d = new Achievement("Achievement 4",4);
+        Achievement e = new Achievement("Achievement 5",5);
+        Achievement f = new Achievement("Wow",6);
+        Achievement g = new Achievement("Zers",7);
 
         Achievement[] list = {
-                a,b,c,d,e
+                a,b,c,d,e,f,g
         };
 
         //ArrayAdapter<String> aAdapter = new ArrayAdapter<String>(this,R.layout.achievement,R.id.achievementName,a);

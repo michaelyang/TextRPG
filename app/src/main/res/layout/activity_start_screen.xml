@@ -64,5 +64,11 @@
             android:paddingRight="5sp"
             android:text="@string/startscreen_about"
             android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/startscreen_reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Temporary - Reset"/>
     </LinearLayout>
 </LinearLayout>
