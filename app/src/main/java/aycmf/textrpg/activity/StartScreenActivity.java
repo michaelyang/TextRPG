@@ -13,7 +13,9 @@ import android.support.v7.widget.AppCompatEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import aycmf.textrpg.R;
@@ -98,13 +100,14 @@ public class StartScreenActivity extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.character_creation_dialog, null);
         final AppCompatEditText characterName = (AppCompatEditText) dialogView.findViewById(R.id.characterName);
         final RadioGroup characterIcon = (RadioGroup) dialogView.findViewById(R.id.characterIcon);
-        characterName.setError("Character name is required.");
         dialogBuilder.setView(dialogView);
         dialogBuilder.setTitle("Character Creation");
-        //dialogBuilder.setMessage("TESTING");
+        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+        /*
         dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                /*
                 int characterIconID = 1;
                 int button = characterIcon.getCheckedRadioButtonId();
                 switch (button) {
@@ -121,12 +124,32 @@ public class StartScreenActivity extends AppCompatActivity {
                 //below function call is only for testing purposes. Won't be needed once the GameActivity is implemented
                 setButtonState();
                 statusView.updateStatus();
+
                 //continueGame(true, characterName.getText().toString());
                 //setButtonState(null, null);
             }
-        });
+        });*/
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        AlertDialog alert = dialogBuilder.create();
+        final AlertDialog alert = dialogBuilder.create();
+        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positiveButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
+                positiveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (characterIcon.getCheckedRadioButtonId() == -1) {
+                            ((TextView) findViewById(R.id.characterIconLabel)).requestFocus();
+                            //((TextView) findViewById(R.id.characterIconLabel)).setError("Character icon is required.");
+                        } else if (characterName.getText().toString().trim().length() == 0) {
+                            characterName.setError("Character name is required.");
+                        } else {
+                            alert.dismiss();
+                        }
+                    }
+                });
+            }
+        });
         alert.show();
         //alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 
