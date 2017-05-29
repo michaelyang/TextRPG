@@ -1,11 +1,16 @@
 package aycmf.textrpg.view;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -17,6 +22,9 @@ import android.widget.TextView;
 
 import aycmf.textrpg.R;
 import aycmf.textrpg.TextRPGApplication;
+import aycmf.textrpg.activity.AchievementActivity;
+import aycmf.textrpg.activity.StartScreenActivity;
+import aycmf.textrpg.fragment.InventoryFragment;
 import aycmf.textrpg.model.Character;
 
 /**
@@ -27,9 +35,9 @@ public class StatusView extends RelativeLayout {
     private final ImageView characterIcon;
     private final TextView characterName;
     private final TextView characterStats;
-    private final ImageView inventoryIcon;
+    private final ImageButton inventoryIcon;
 
-    public StatusView(Context context, AttributeSet attrs) {
+    public StatusView(final Context context, AttributeSet attrs) {
         super(context, attrs);
         app = (TextRPGApplication) context.getApplicationContext();
         app.load();
@@ -38,7 +46,13 @@ public class StatusView extends RelativeLayout {
         characterIcon = (ImageView) findViewById(R.id.characterIcon);
         characterName = (TextView) findViewById(R.id.characterName);
         characterStats = (TextView) findViewById(R.id.characterStats);
-        inventoryIcon = (ImageView) findViewById(R.id.inventoryIcon);
+        inventoryIcon = (ImageButton) findViewById(R.id.inventoryIcon);
+        inventoryIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         updateStatus();
    }
 

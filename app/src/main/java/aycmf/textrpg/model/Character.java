@@ -2,13 +2,16 @@ package aycmf.textrpg.model;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by myang on 5/10/17.
  */
 
 public class Character {
-    //Item equippedItem;
-    //Inventory inventory;
+    Item equippedItem;
+    Inventory inventory;
 
     //shortened death timer
     public int strength;
@@ -21,6 +24,7 @@ public class Character {
     public String name;
     public boolean alive;
     public int characterIconID;
+    public List<Integer> completedAchievements;
 
     public Character() {
     }
@@ -42,6 +46,9 @@ public class Character {
         this.luck = 1;
         this.characterIconID = characterIconID;
         this.alive = true;
+        this.completedAchievements = new ArrayList<>();
+        this.inventory = new Inventory();
+        this.equippedItem = null;
     }
 
     public int getCharacterIconID() {
@@ -79,7 +86,7 @@ public class Character {
     public void changeLuck(int changeAmount) {
         luck = Math.min(luck + changeAmount, 0);
     }
-
+    public Inventory getInventory() {return inventory;}
     /*
     public Item getEquippedItem() {
         return equippedItem;

@@ -5,14 +5,20 @@ package aycmf.textrpg.model;
  */
 
 public class Achievement {
-    final String achievementName;
-    final int achievementId;
 
-    public Achievement (String achievementName, int achievementId) {
-        this.achievementName = achievementName;
-        this.achievementId = achievementId;
+    final int id;
+    final String name;
+    final String iconId;
+    final String description;
+
+    public Achievement (int id, String name, String iconId, String description) {
+        this.id = id;
+        this.name = name;
+        this.iconId = iconId;
+        this.description = description;
     }
+
     public String getName () {
-        return achievementName;
+        return name;
     }
 }
