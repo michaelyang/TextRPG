@@ -40,10 +40,11 @@ public class StartScreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_start_screen);
         if (app.hasExistingGame()) {
-            app.load();
+            app.loadGame();
         }
 
         statusView = (StatusView) findViewById(R.id.statusView);
+        statusView.updateStatus();
 
         startscreen_continue = (Button) findViewById(R.id.startscreen_continue);
         startscreen_continue.setOnClickListener(new View.OnClickListener() {
@@ -105,9 +106,9 @@ public class StartScreenActivity extends AppCompatActivity {
     }
 
     public void continueGame(){
-        final TextRPGApplication app = (TextRPGApplication) getApplicationContext();
-        app.load();
-        Toast.makeText(StartScreenActivity.this,app.getModelContainer().getCharacter().getName()+" with STR: " + app.getModelContainer().getCharacter().getStrength() + " DEX: " + app.getModelContainer().getCharacter().getDexterity() + " and such...",Toast.LENGTH_LONG).show();
+        Intent i = new Intent(StartScreenActivity.this, MainActivity.class);
+        startActivity(i);
+        //Toast.makeText(StartScreenActivity.this,app.getModelContainer().getCharacter().getName()+" with STR: " + app.getModelContainer().getCharacter().getStrength() + " DEX: " + app.getModelContainer().getCharacter().getDexterity() + " and such...",Toast.LENGTH_LONG).show();
     }
 
     public void newGame(){
@@ -143,14 +144,12 @@ public class StartScreenActivity extends AppCompatActivity {
                                     characterIconID = 2;
                                     break;
                             }
-
-                            app.initializeGame(characterName.getText().toString(), characterIconID);
-                            app.save();
+                            app.newGame(characterName.getText().toString().trim(), characterIconID);
+                            app.saveGame();
                             //below function call is only for testing purposes. Won't be needed once the GameActivity is implemented
                             setButtonState();
                             statusView.updateStatus();
                             //continueGame(true, characterName.getText().toString());
-                            //setButtonState(null, null);
                             alert.dismiss();
                         }
                     }
@@ -159,30 +158,11 @@ public class StartScreenActivity extends AppCompatActivity {
         });
         alert.show();
         //alert.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-
-        /*
-        new AlertDialog.Builder(StartScreenActivity.this)
-                .setTitle("Character Name")
-                .setMessage(R.string.startscreen_entercharactername)
-                .setView(characterName)
-                .setIcon(android.R.drawable.ic_input_add)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        app.initializeGame(characterName.getText().toString());
-                        app.save();
-                        //continueGame(true, characterName.getText().toString());
-                        //setButtonState(null, null);
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .create().show();
-                */
     }
 
     public void clearGame(){
         final TextRPGApplication app = (TextRPGApplication) getApplicationContext();
-        app.clear();
+        app.clearGame();
     }
 
     private void setButtonState() {

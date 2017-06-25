@@ -14,17 +14,17 @@ import aycmf.textrpg.model.ModelContainer;
 
 public class TextRPGApplication extends Application {
 
-    private ModelContainer modelContainer;
-    private boolean isInitialized = false;
-    public ModelContainer getModelContainer() { return modelContainer; }
+    private ModelContainer modelContainer = new ModelContainer();
 
-    public void initializeGame(String characterName, int characterIconID) {
-        modelContainer = new ModelContainer();
-        modelContainer.initializeModelContainer(characterName, characterIconID);
-        isInitialized = true;
+    public ModelContainer getModelContainer() {
+        return modelContainer;
     }
 
-    public void save() {
+    public void newGame(String characterName, int characterIconID) {
+        modelContainer.resetForNewGame(characterName, characterIconID);
+    }
+
+    public void saveGame() {
         SharedPreferences save = getSharedPreferences("save", 0);
         SharedPreferences.Editor editor = save.edit();
         final Gson gson = new Gson();
@@ -33,24 +33,22 @@ public class TextRPGApplication extends Application {
         editor.commit();
     }
 
-    public void clear() {
+    public void clearGame() {
         SharedPreferences save = getSharedPreferences("save", 0);
         SharedPreferences.Editor editor = save.edit();
         editor.remove("saveData");
         editor.commit();
-        isInitialized = false;
     }
 
-    public void load() {
+    public void loadGame() {
         SharedPreferences save = getSharedPreferences("save", 0);
         Gson gson = new Gson();
-        String json = save.getString("saveData", null);
+        String json = save.getString("saveData", "");
         modelContainer = gson.fromJson(json, ModelContainer.class);
-        isInitialized = true;
     }
 
     public boolean hasExistingGame() {
         return getSharedPreferences("save",0).contains("saveData");
     }
-    public boolean isInitialized() { return isInitialized; }
+
 }

@@ -1,11 +1,14 @@
 package aycmf.textrpg.model;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,7 +61,12 @@ public class AchievementAdapter extends BaseAdapter {
 
         achievementName.setText(achievement.getName());
         achievementIcon.setImageResource(resourceId);
+        //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        //dialogBuilder.setTitle("Test Title");
+        //dialogBuilder.setMessage(achievement.description);
+        //dialogBuilder.show();
 
         return convertView;
+
     }
 }

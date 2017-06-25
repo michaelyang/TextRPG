@@ -8,19 +8,16 @@ package aycmf.textrpg.model;
 public class ModelContainer {
 
     public final Character character;
-    //public final Achievement achievement;
+    public final Statistics statistics;
 
     public ModelContainer() {
         this.character = new Character();
-        //this.achievement = new Achievement();
-    }
-    public ModelContainer(Character character, Achievement achievement) {
-        this.character = character;
-        //this.achievement = achievement;
+        this.statistics = new Statistics();
     }
 
-    public void initializeModelContainer(String characterName, int characterIconID) {
-        character.initializeNewCharacter(characterName, characterIconID);
+    public void resetForNewGame(String characterName, int characterIconID) {
+        character.resetForNewGame(characterName, characterIconID);
+        statistics.resetForNewGame();
     }
 
     public Character getCharacter() {
