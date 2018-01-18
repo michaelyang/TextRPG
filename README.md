@@ -3,7 +3,7 @@
 Making a text based game, similar to the adventure gamebooks I used to read/play as a child. Users will be able to start a storyline, given a set of choices along the way (some options will only be available with certain stat/item requirement), and allowed to "rebirth" at the end of the game, or restart the game from the beginning while retaining all gained stats. Stats can only be gained through achievements unlocked along the way.
 
 ## Demo (for what I have so far)
-[![Demo](http://img.youtube.com/vi/vlwdBNCzGH4/0.jpg)](http://www.youtube.com/watch?v=vlwdBNCzGH4 "mTicketSpoof Demo
+[![Demo](https://img.youtube.com/vi/hLQiKLChd-k/0.jpg)](https://www.youtube.com/watch?v=hLQiKLChd-k "mTicketSpoof Demo
 ")
 
 Click to watch video
